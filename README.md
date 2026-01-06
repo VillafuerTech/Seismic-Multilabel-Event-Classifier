@@ -4,20 +4,44 @@
 
 This repository implements a full end-to-end data science pipeline for multi-label classification of seismic signals captured in `.at2` format. The objective is to preprocess raw seismic data, extract spectral features using FFT, train and evaluate multiple machine learning models, and deploy the optimal model for production use.
 
+## Quick Start
+
+```bash
+# 1. Create and activate conda environment
+conda env create -f environment.yml
+conda activate ml_project
+
+# 2. Run smoke tests to verify installation
+make test
+
+# 3. Run inference on sample data (requires trained model)
+python scripts/predict.py --input data/sample_input.json
+```
+
 ## Repository Structure
 
 ```
-├── data
-│   ├── raw/           # Original `.at2` data files
-│   ├── interim/       # Intermediate data after preprocessing
-│   └── processed/     # Final feature matrices and labels (.csv/.npy)
-├── notebooks/         # Jupyter Notebooks organized by project stage
-├── src/               # Modular Python source code (preprocessing, features, modeling)
-├── tests/             # Unit tests for project code
-├── outputs/           # Executed notebooks, model artifacts, and visualizations
-├── environment.yml    # Conda environment specification
-├── Makefile           # Automation tasks (environment setup, notebook execution)
-└── .gitignore         # Git ignore rules for unnecessary files
+├── data/
+│   ├── raw/              # Original `.at2` data files
+│   ├── interim/          # Intermediate data after preprocessing
+│   ├── processed/        # Final feature matrices and labels
+│   └── sample_input.json # Synthetic sample for testing inference
+├── notebooks/            # Jupyter Notebooks (01-10)
+├── src/
+│   ├── features.py       # FFT-based feature extraction
+│   └── seismic_model.py  # PyTorch Lightning model definition
+├── scripts/
+│   ├── predict.py        # CLI inference script
+│   └── export_requirements.sh
+├── tests/                # Unit tests (smoke tests < 5s)
+├── docs/
+│   ├── INFERENCE_GUIDE.md
+│   └── modernization/    # Modernization plan and changelog
+├── models/               # Trained models and scalers (binaries not tracked)
+├── environment.yml       # Conda environment (source of truth)
+├── requirements.txt      # Pip requirements (derived)
+├── Makefile              # Automation targets
+└── .pre-commit-config.yaml
 ```
 
 ## Prerequisites
@@ -32,13 +56,27 @@ This repository implements a full end-to-end data science pipeline for multi-lab
    git clone https://github.com/your_username/ml2024-seismic-classification.git
    cd ml2024-seismic-classification
    ```
+
 2. Create and activate the Conda environment:
    ```bash
    conda env create -f environment.yml
    conda activate ml_project
    ```
 
+3. (Optional) Install pre-commit hooks for notebook hygiene:
+   ```bash
+   pre-commit install
+   ```
+
 ## Usage
+
+### Run Tests
+
+```bash
+make test
+# or directly:
+pytest tests/ -v --tb=short -q
+```
 
 ### Execute All Notebooks
 
@@ -48,15 +86,30 @@ Run the complete pipeline and generate executed notebook outputs:
 make run-notebooks
 ```
 
-This command will produce executed versions of each notebook in the `outputs/` directory, suffixed with `_output.ipynb`.
+### Run Inference
+
+See [docs/INFERENCE_GUIDE.md](docs/INFERENCE_GUIDE.md) for detailed instructions.
+
+```bash
+# Basic usage
+python scripts/predict.py --input data/sample_input.json
+
+# With custom threshold
+python scripts/predict.py --input data.json --threshold 0.6 --output results.json
+```
 
 ## Testing
 
-Ensure core functionalities behave as expected by running unit tests:
+Smoke tests verify core functionalities in under 5 seconds:
 
 ```bash
-pytest --maxfail=1 --disable-warnings -q
+make test
 ```
+
+Tests include:
+- Import verification for all dependencies
+- Feature extraction with synthetic sine waves
+- Model instantiation and forward pass
 
 ## Notebook Descriptions
 
