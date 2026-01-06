@@ -1,8 +1,11 @@
+# AUTO-GENERATED from environment.yml
+# Do not edit manually. Run: scripts/export_requirements.sh
+# Source of truth: environment.yml
+#
 numpy
 pandas
 scipy
 scikit-learn
-tensorflow
 jupyterlab
 papermill
 joblib
@@ -11,7 +14,9 @@ seaborn
 pytest
 pyarrow
 fastparquet
-scikeras
 torch
-Lightning
+lightning
 torchmetrics
+scikeras
+nbstripout
+pre-commit
