@@ -1,0 +1,22 @@
+# AUTO-GENERATED from environment.yml
+# Do not edit manually. Run: scripts/export_requirements.sh
+# Source of truth: environment.yml
+#
+numpy
+pandas
+scipy
+scikit-learn
+jupyterlab
+papermill
+joblib
+matplotlib
+seaborn
+pytest
+pyarrow
+fastparquet
+torch
+lightning
+torchmetrics
+scikeras
+nbstripout
+pre-commit

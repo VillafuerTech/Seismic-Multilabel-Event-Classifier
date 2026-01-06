@@ -1,15 +1,61 @@
-# Entorno
+# ─── Entorno virtual ─────────────────────────────
 env/
+venv/
+.venv/
 
-# Python
+# ─── Python ──────────────────────────────────────
 __pycache__/
-*.pyc
-\ n# Notebooks
+*.py[cod]
+*.egg-info/
+*.egg
+.eggs/
+dist/
+build/
+*.so
+
+# ─── Jupyter ─────────────────────────────────────
 .ipynb_checkpoints/
 
-# Datos
-data/interim/
-data/processed/
+# ─── Datos intermedios / procesados ─────────────
+# ignorar TODO dentro de interim y processed
+data/interim/*
+data/processed/*
+# pero trackear su .gitkeep para conservar la carpeta
+!data/interim/.gitkeep
+!data/processed/.gitkeep
 
-# Salidas
+# ─── RAW ─────────────────────────────────────────
+# ignorar todo
+data/raw/*
+# excepto el zip que nos importa
+!data/raw/Base-sismos-2024.zip
+# y el .gitkeep si quieres conservar el dir vacío
+!data/raw/.gitkeep
+
+# ─── Otros ignorables ────────────────────────────
+.DS_Store
 outputs/
+
+# ─── Training artifacts (never track) ────────────
+lightning_logs/
+checkpoints/
+
+# ─── Model binaries ──────────────────────────────
+# Ignore all checkpoints and pickle files
+*.ckpt
+*.pkl
+# But track specific small artifacts needed for inference
+!models/scaler.pkl
+
+# ─── IDE / Editor ────────────────────────────────
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# ─── Logs and temp files ─────────────────────────
+*.log
+*.tmp
+.cache/
+.pytest_cache/
