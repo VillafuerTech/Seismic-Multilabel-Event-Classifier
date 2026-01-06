@@ -1,7 +1,0 @@
-hidden_units:
-- 128
-- 64
-input_shape: 82
-lambda_L2: 1.0e-05
-lr: 0.001
-num_classes: 9

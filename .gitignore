@@ -1,10 +1,17 @@
 # ─── Entorno virtual ─────────────────────────────
 env/
+venv/
+.venv/
 
 # ─── Python ──────────────────────────────────────
 __pycache__/
 *.py[cod]
 *.egg-info/
+*.egg
+.eggs/
+dist/
+build/
+*.so
 
 # ─── Jupyter ─────────────────────────────────────
 .ipynb_checkpoints/
@@ -29,10 +36,26 @@ data/raw/*
 .DS_Store
 outputs/
 
+# ─── Training artifacts (never track) ────────────
 lightning_logs/
-
 checkpoints/
-# ─── (opcional) Models ───────────────────────────
-# si no quieres versionar los .pkl:
-# models/*
-# !models/.gitkeep
+
+# ─── Model binaries ──────────────────────────────
+# Ignore all checkpoints and pickle files
+*.ckpt
+*.pkl
+# But track specific small artifacts needed for inference
+!models/scaler.pkl
+
+# ─── IDE / Editor ────────────────────────────────
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# ─── Logs and temp files ─────────────────────────
+*.log
+*.tmp
+.cache/
+.pytest_cache/
